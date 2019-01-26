@@ -1,0 +1,37 @@
+{
+  "name": "conditionaljs-demo",
+  "version": "1.0.0",
+  "description": "Demo for the conditionaljs library",
+  "main": "index.js",
+  "watch": {
+    "build" : {
+      "patterns": ["src"],
+      "extensions": "js,html"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js && copy src\\index.html dist\\index.html /y",
+    "build-watch": "npm-watch build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reed-lawrence/conditionalJS-demo.git"
+  },
+  "author": "Reed Lawrence",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reed-lawrence/conditionalJS-demo/issues"
+  },
+  "homepage": "https://github.com/reed-lawrence/conditionalJS-demo#readme",
+  "dependencies": {
+    "chart.js": "^2.7.3",
+    "conditionaljs": "^1.0.2",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "npm-watch": "^0.6.0",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  }
+}
