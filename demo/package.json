@@ -21,7 +21,7 @@
     "@angular/router": "~7.2.0",
     "@types/chart.js": "^2.7.42",
     "@types/prismjs": "^1.9.0",
-    "conditionaljs": "^1.0.2",
+    "conditionaljs": "^1.0.3",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "rxjs": "~6.3.3",

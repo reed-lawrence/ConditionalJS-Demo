@@ -1,13 +1,18 @@
-<div class="container">
-  <div class="jumbotron pb-2 pt-5">
-    <h1 style="font-weight: 200;">ConditionalJS</h1>
-    <p>Lightweight javascript conditional formatting library</p>
-    <hr>
-    <p>
-      <a class="btn btn-link" href="https://github.com/reed-lawrence/ConditionalJS"><i class="fab fa-github"></i> Github</a>
-      <a class="btn btn-link" href="https://www.npmjs.com/package/conditionaljs"><i class="fab fa-npm"></i> conditionaljs</a>
-    </p>
+<div class="jumbotron pb-3 pt-5">
+  <h1 style="font-weight: 200;">ConditionalJS</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      Lightweight javascript conditional formatting library
+    </div>
+    <div class="col-lg-6 text-lg-right mt-3 mt-lg-0">
+      <span>
+        <a class="mr-3" href="https://github.com/reed-lawrence/ConditionalJS"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/conditionaljs"><i class="fab fa-npm"></i></a>
+      </span>
+    </div>
   </div>
+</div>
+<div class="container">
   <div class="row">
     <div class="col-lg-6">
       <canvas height="150" #donutcanvas></canvas>
@@ -52,8 +57,11 @@ console.log(colors);
     </div>
   </div>
   <div class="row mt-5">
-    <div class="col-lg-4">
-      <h3 style="text-align: right">Beatuiful Charts</h3>
+    <div class="col-lg-8 px-5 py-5 order-lg-2">
+      <canvas height="150" #stackedlinecanvas></canvas>
+    </div>
+    <div class="col-lg-4 order-lg-1">
+      <h3 class="text-lg-right">Beatuiful Charts</h3>
       <hr>
       <p>Eliminate the distraction and utilize simple gradients to create elegant graphics and let your data tell its
         story.</p>
@@ -68,9 +76,6 @@ console.log(colors);
           <span *ngIf="stackedLineChartCodeShown === true">Hide code</span>
         </button>
       </p>
-    </div>
-    <div class="col-lg-8 px-5 py-5">
-      <canvas height="150" #stackedlinecanvas></canvas>
     </div>
   </div>
   <div class="row" #stackedLineChartCode style="display: none;">
@@ -188,3 +193,25 @@ for (const d of data)&#123;
     </div>
   </div>
 </div>
+<hr>
+<footer class="mb-3">
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4" style="text-align: center; font-size: small;">
+      <p class="text-muted">
+        <a class="mr-2" href="https://github.com/reed-lawrence/ConditionalJS"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/conditionaljs"><i class="fab fa-npm"></i></a>
+      </p>
+      <p>
+        <a href="https://github.com/reed-lawrence/ConditionalJS-Demo">Demo on github</a>
+      </p>
+      <hr>
+      <a href="https://angular.io/">Angular</a> |
+      <a href="https://getbootstrap.com/">Bootstrap</a> |
+      <a href="https://prismjs.com/">Prismjs</a> |
+      <a href="https://fontawesome.com/">Fontawesome</a> |
+      <a href="https://www.chartjs.org/">Chart.js</a>
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+</footer>

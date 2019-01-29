@@ -4,10 +4,20 @@
   border-color: #bbbbbb;
 }
 
-.jumbotron>p>button>.fab{
+.jumbotron .fab{
   font-size: 1.5rem;
+  color: #2c2c2c;
 }
 
-.jumbotron>p>.btn-link{
+.jumbotron{
+  border-radius: 0px;
+}
+
+
+footer a {
   color: #2c2c2c;
+}
+
+footer .fab{
+  font-size: 1.25rem;
 }
