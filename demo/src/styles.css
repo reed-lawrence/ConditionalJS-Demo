@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/prismjs/themes/prism.css';
+body {
+  background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(223, 227, 230));
+}
+
+code {
+  font-size: smaller !important;
+}
+
+/* h1, h2, h3, h4, h5, h6 {
+  color: #e3e3e3;
+}
+
+hr {
+  border-color: white;
+}
+
+p{
+  color: #e3e3e3;
+} */

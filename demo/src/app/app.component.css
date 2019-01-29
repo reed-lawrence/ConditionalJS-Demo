@@ -1,0 +1,13 @@
+.btn-secondary {
+  background-color: #d3d3d3;
+  color: #353535;
+  border-color: #bbbbbb;
+}
+
+.jumbotron>p>button>.fab{
+  font-size: 1.5rem;
+}
+
+.jumbotron>p>.btn-link{
+  color: #2c2c2c;
+}

@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { $ } from 'jquery';
+import * as $ from 'jquery';
 import { Chart } from 'chart.js';
 import { bootstrap } from 'bootstrap';
+import * as prism from 'prismjs';
 import * as format from 'conditionaljs';
 import { TableVal } from './classes/table-val';
 
@@ -15,22 +16,40 @@ export class AppComponent implements OnInit {
   @ViewChild('donutcanvas') donutcanvas: ElementRef;
   @ViewChild('stackedlinecanvas') stackedlinecanvas: ElementRef;
 
+  // Prism highlights
+  test = null;
+
   // Donut variables
   donutChart: Chart = null;
   donutStartColor = '#e96443';
   donutEndColor = '#904e95';
   donutData: number[] = [];
+  donutCodeShown = false;
 
   // Stacked line chart variables
   stackedLineChart: Chart = null;
+  stackedLineChartStartColor = '#ffd89b';
+  stackedLineChartEndColor = '#19547b';
   stackedLineChartData: number[][] = [];
+  stackedLineChartCodeShown = false;
 
+  // Conditional formatting table variables
   tableValsOrdered: TableVal[] = [];
   tableValsUnordered: TableVal[] = [];
+  tableValsColorStart = '#f8696b';
+  tableValsColorMiddle = '#fded84';
+  tableValsColorEnd = '#6aba7d';
+  tableValsCodeShown = false;
+
+
+  ToggleEle(ele: any){
+    $(ele).slideToggle('fast');
+  }
 
   async PlotDonut(colorStart: string, colorEnd: string, data: any[]): Promise<boolean> {
     return new Promise(resolve => {
       const colors = format.generateTwoWayGradient(colorStart, colorEnd, data.length);
+      console.log(colors);
       const labels = [];
 
       for (let i = 0; i < data.length; i++) {
@@ -80,8 +99,8 @@ export class AppComponent implements OnInit {
 
   async PlotLineChart(dataplots: number[][]): Promise<boolean> {
     return new Promise(resolve => {
-      const colors = format.generateTwoWayGradient('#ffd89b', '#19547b', dataplots.length);
-
+      const colors = format.generateTwoWayGradient(this.stackedLineChartStartColor, this.stackedLineChartEndColor, dataplots.length);
+      console.log(colors);
       const labels: string[] = [];
 
       const datasets: Chart.ChartDataSets[] = [];
@@ -154,15 +173,26 @@ export class AppComponent implements OnInit {
       }
     }
 
-    const unorderedVals = [];
-    for (let i = 0; i < 11; i++) {
-      unorderedVals.push(Math.floor(Math.random() * 201) - 100);
-    }
+    const randomVals: Promise<number[]> =  new Promise(resolve => {
+      const unorderedVals = [];
+      const promises: Promise<boolean>[] = [];
+      for (let i = 0; i < 11; i++) {
+        promises.push(new Promise(res => {
+          setTimeout(() => {
+            unorderedVals.push(Math.floor(Math.random() * 20));
+            res(true);
+          }, 50);
+        }));
+      }
+      Promise.all(promises).then(done => resolve(unorderedVals));
+    });
+    
 
     this.PlotDonut(this.donutStartColor, this.donutEndColor, this.donutData).then(done => console.log('Donut plotted'));
     this.GenerateTableVals([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]).then(vals => this.tableValsOrdered = vals);
-    // this.GenerateTableVals(unorderedVals).then(vals => this.tableValsUnordered = vals);
-    this.GenerateTableVals([-7, -97, 72, 99, 38, 89, 86, 42, 89, -25, 16]).then(vals => this.tableValsUnordered = vals);
+    randomVals.then(unorderedVals => this.GenerateTableVals(unorderedVals).then(vals => this.tableValsUnordered = vals));
     this.PlotLineChart(this.stackedLineChartData).then(done => console.log('Area chart plotted'));
+
+    prism.highlightAll();
   }
 }

@@ -1,8 +1,14 @@
 <div class="container">
-  <div class="jumbotron">
-
+  <div class="jumbotron pb-2 pt-5">
+    <h1 style="font-weight: 200;">ConditionalJS</h1>
+    <p>Lightweight javascript conditional formatting library</p>
+    <hr>
+    <p>
+      <a class="btn btn-link" href="https://github.com/reed-lawrence/ConditionalJS"><i class="fab fa-github"></i> Github</a>
+      <a class="btn btn-link" href="https://www.npmjs.com/package/conditionaljs"><i class="fab fa-npm"></i> conditionaljs</a>
+    </p>
   </div>
-  <div class="row mb-5">
+  <div class="row">
     <div class="col-lg-6">
       <canvas height="150" #donutcanvas></canvas>
     </div>
@@ -10,21 +16,88 @@
       <h3>Dynamic gradients</h3>
       <hr>
       <p>
-        <span></span>
+        Generate color arrays quickly from minimal inputs.
       </p>
+      <div>
+        <span class="badge" [style.background-color]="donutStartColor">{{donutStartColor}}</span>
+        <i class="fas fa-arrow-right ml-2 mr-2"></i>
+        <span class="badge" [style.background-color]="donutEndColor">{{donutEndColor}}</span>
+      </div>
+      <div class="mt-3">
+        <button class="btn btn-sm btn-secondary" (click)="ToggleEle(donutPlotCode); donutCodeShown === false ? donutCodeShown = true : donutCodeShown = false;">
+          <span *ngIf="donutCodeShown === false">Show code</span>
+          <span *ngIf="donutCodeShown === true">Hide code</span>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="row mb-5">
-    <div class="col-4" style="text-align: right">
-      <h3>Beatuiful Charts</h3>
-      <hr>
+  <div class="row" #donutPlotCode style="display: none;">
+    <div class="col">
+      <div>
+        <pre><code class="language-js">
+import * as format from 'conditionaljs';
+// ...
+const data = [];
+for (let i = 0; i &#60; 10; i++)&#123;
+  data.push(Math.round(Math.random() * 10));
+&#125;
+const colorStart = '#e96443';
+const colorEnd = '#904e95';
+const colors = format.generateTwoWayGradient(colorStart, colorEnd, data.length);
+console.log(colors);
+
+// colors -> ["#e0614b", "#d75f53", "#ce5d5b", "#c55b63", "#bc596c", "#b35674", "#aa547c", "#a15284", "#98508c", "#904e94"]
+        </code></pre>
+      </div>
     </div>
-    <div class="col-8 px-5 py-5">
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-4">
+      <h3 style="text-align: right">Beatuiful Charts</h3>
+      <hr>
+      <p>Eliminate the distraction and utilize simple gradients to create elegant graphics and let your data tell its
+        story.</p>
+      <p>
+        <span class="badge" [style.background-color]="stackedLineChartStartColor">{{stackedLineChartStartColor}}</span>
+        <i class="fas fa-arrow-right ml-2 mr-2"></i>
+        <span class="badge" [style.background-color]="stackedLineChartEndColor">{{stackedLineChartEndColor}}</span>
+      </p>
+      <p>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="ToggleEle(stackedLineChartCode); stackedLineChartCodeShown === false ? stackedLineChartCodeShown = true : stackedLineChartCodeShown = false;">
+          <span *ngIf="stackedLineChartCodeShown === false">Show code</span>
+          <span *ngIf="stackedLineChartCodeShown === true">Hide code</span>
+        </button>
+      </p>
+    </div>
+    <div class="col-lg-8 px-5 py-5">
       <canvas height="150" #stackedlinecanvas></canvas>
     </div>
   </div>
-  <div class="row mb-5">
-    <div class="col-6">
+  <div class="row" #stackedLineChartCode style="display: none;">
+    <div class="col">
+      <pre><code class="language-js">
+import * as format from 'conditionaljs';
+// ... 
+const data = [];
+
+for (let i = 0; i &#60; 4; i++)&#123;
+  data.push([]);
+  for (let j = 0; j &#60; 10; i++)&#123;
+    data[i].push(Math.round(Math.random() * 10));
+  &#125;
+&#125;
+
+const colorStart = '#ffd89b';
+const colorEnd = '#19547b';
+const colors = format.generateTwoWayGradient(colorStart, colorEnd, data.length);
+console.log(colors);
+
+// colors -> ["#c5b793", "#8c968b", "#527583", "#19547b"]
+      </code></pre>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-6">
       <div class="row" style="text-align: center">
         <div class="col">
           <h5>Ordered datasets</h5>
@@ -62,9 +135,56 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-lg-6">
       <h3>Dynamic conditional formatting</h3>
       <hr>
+      <p>
+        Utilize custom conditional formatting for data visualizations similar to your favorite spreadsheet programs.
+      </p>
+      <p>
+        <span class="badge" [style.background-color]="tableValsColorStart">{{tableValsColorStart}}</span>
+        <i class="fas fa-arrow-right ml-2 mr-2"></i>
+        <span class="badge" [style.background-color]="tableValsColorMiddle">{{tableValsColorMiddle}}</span>
+        <i class="fas fa-arrow-right ml-2 mr-2"></i>
+        <span class="badge" [style.background-color]="tableValsColorEnd">{{tableValsColorEnd}}</span>
+      </p>
+      <p>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="ToggleEle(tableValsCode); tableValsCodeShown === false ? tableValsCodeShown = true : tableValsCodeShown = false;">
+          <span *ngIf="tableValsCodeShown === false">Show code</span>
+          <span *ngIf="tableValsCodeShown === true">Hide code</span>
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="row" #tableValsCode style="display: none">
+    <div class="col">
+      <pre><code class="language-js">
+import * as format from 'conditionaljs';
+// ... 
+const data = [];
+
+for (let i = 0; i &#60; 10; i++)&#123;
+  data.push(Math.round(Math.random() * 20));
+&#125;
+
+const colorStart = '#f8696b';
+const colorMiddle = '#fded84';
+const colorEnd = '#6aba7d';
+
+// get the three way gradient of colors to conditionally apply to
+const colors = format.generateThreeWayGradient(colorStart, colorMiddle, colorEnd, data.length);
+
+const conditionalArr = [];
+const min = Math.min(... data);
+const max = Math.max(... data);
+for (const d of data)&#123;
+  // get the conditional color in relation to each given value
+  conditionalArr.push(&#123;
+    value: d,
+    color: format.getConditionalValueColor(d, min, max, tableColors)
+  &#125;);
+&#125;
+      </code></pre>
     </div>
   </div>
 </div>
