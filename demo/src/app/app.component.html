@@ -28,12 +28,12 @@
         <i class="fas fa-arrow-right ml-2 mr-2"></i>
         <span class="badge" [style.background-color]="donutEndColor">{{donutEndColor}}</span>
       </div>
-      <div class="mt-3">
+      <p class="mt-3">
         <button class="btn btn-sm btn-secondary" (click)="ToggleEle(donutPlotCode); donutCodeShown === false ? donutCodeShown = true : donutCodeShown = false;">
           <span *ngIf="donutCodeShown === false">Show code</span>
           <span *ngIf="donutCodeShown === true">Hide code</span>
         </button>
-      </div>
+      </p>
     </div>
   </div>
   <div class="row" #donutPlotCode style="display: none;">
@@ -189,6 +189,44 @@ for (const d of data)&#123;
     color: format.getConditionalValueColor(d, min, max, tableColors)
   &#125;);
 &#125;
+      </code></pre>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-8 mb-3">
+      <canvas #barChartCanvas></canvas>
+    </div>
+    <div class="col-lg-4">
+      <h3>Material design</h3>
+      <hr>
+      <p>
+        Just need quick colors? Generate random material design color palates with one line of code.
+      </p>
+      <p class="mt-3">
+        <button class="btn btn-sm btn-secondary" (click)="ToggleEle(barChartCode); barChartCodeShown === false ? barChartCodeShown = true : barChartCodeShown = false;">
+          <span *ngIf="barChartCodeShown === false">Show code</span>
+          <span *ngIf="barChartCodeShown === true">Hide code</span>
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="row" #barChartCode style="display: none;">
+    <div class="col">
+      <pre><code class="language-js">
+import * as format from 'conditionaljs';
+// ... 
+const data = [];
+
+for (let i = 0; i &#60; 10; i++)&#123;
+  data.push(Math.floor(Math.random() * 10) + 1);
+&#125;
+
+const colors = [];
+for (let i = 0; i &#60; data.length; i++)&#123;
+  colors.push(format.getRandomMaterialDesignColor());
+&#125;
+
+// colors => ["#29B6F6", "#EC407A", "#FF7043", "#26C6DA", "#26A69A", "#D4E157", "#AB47BC", "#5C6BC0", "#FFA726", "#7E57C2"]
       </code></pre>
     </div>
   </div>

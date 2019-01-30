@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild('donutcanvas') donutcanvas: ElementRef;
   @ViewChild('stackedlinecanvas') stackedlinecanvas: ElementRef;
+  @ViewChild('barChartCanvas') barChartCanvas: ElementRef;
 
   // Prism highlights
   test = null;
@@ -41,8 +42,13 @@ export class AppComponent implements OnInit {
   tableValsColorEnd = '#6aba7d';
   tableValsCodeShown = false;
 
+  // Bar chart variables
+  barChart: Chart = null;
+  barChartData: number[] = [];
+  barChartCodeShown = false;
 
-  ToggleEle(ele: any){
+
+  ToggleEle(ele: any) {
     $(ele).slideToggle('fast');
   }
 
@@ -94,6 +100,49 @@ export class AppComponent implements OnInit {
         });
       }
       resolve(arr);
+    });
+  }
+
+  async PlotBarChart(data: number[]): Promise<boolean> {
+    return new Promise(resolve => {
+      const labels: string[] = [];
+      const colors: string[] = [];
+      for (let i = 0; i < data.length; i++) {
+        labels.push('Dataset ' + i + 1);
+        colors.push(format.getRandomMaterialDesignColor());
+      }
+      console.log(colors);
+      this.barChart = new Chart(this.barChartCanvas.nativeElement, {
+        type: 'bar',
+        data: {
+          datasets: [{
+            data: data,
+            backgroundColor: colors
+          }],
+          labels: labels
+        },
+        options: {
+          animation: {
+            onComplete: (animation) => {
+              resolve(true);
+            }
+          },
+          responsive: true,
+          scales: {
+            xAxes: [{
+               display: false
+            }],
+            yAxes: [{
+              ticks: {
+                min: 0
+              }
+            }]
+          },
+          legend: {
+            display: false
+          }
+        }
+      });
     });
   }
 
@@ -164,6 +213,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     for (let i = 0; i < 10; i++) {
       this.donutData.push(Math.round(Math.random() * 10));
+      this.barChartData.push(Math.floor(Math.random() * 10) + 1);
     }
 
     for (let i = 0; i < 4; i++) {
@@ -173,7 +223,7 @@ export class AppComponent implements OnInit {
       }
     }
 
-    const randomVals: Promise<number[]> =  new Promise(resolve => {
+    const randomVals: Promise<number[]> = new Promise(resolve => {
       const unorderedVals = [];
       const promises: Promise<boolean>[] = [];
       for (let i = 0; i < 11; i++) {
@@ -186,13 +236,13 @@ export class AppComponent implements OnInit {
       }
       Promise.all(promises).then(done => resolve(unorderedVals));
     });
-    
+
 
     this.PlotDonut(this.donutStartColor, this.donutEndColor, this.donutData).then(done => console.log('Donut plotted'));
     this.GenerateTableVals([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]).then(vals => this.tableValsOrdered = vals);
     randomVals.then(unorderedVals => this.GenerateTableVals(unorderedVals).then(vals => this.tableValsUnordered = vals));
     this.PlotLineChart(this.stackedLineChartData).then(done => console.log('Area chart plotted'));
-
+    this.PlotBarChart(this.barChartData).then(done => console.log('Bar chart plotted'));
     prism.highlightAll();
   }
 }
